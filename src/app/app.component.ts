@@ -52,12 +52,8 @@ export class AppComponent implements OnInit, OnDestroy {
     ...this.navigation,
     { link: 'settings', label: 'Settings' }
   ];
-  // isAuthenticated: boolean;
   displayWelcome: boolean;
-  // authState: AuthState;
   initialized = false;
-  // groups: Group[];
-  // alias: string;
   loginPayLoad: LoginRequest;
   constructor(
     public overlayContainer: OverlayContainer,
@@ -67,7 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-   // this.isAuthenticated$ = false;
    console.log('I am called 2nd');
     this.store
       .select(selectorSettings)
@@ -88,13 +83,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .select(selectorAuth)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((authState: AuthState) => {
-          // this.authState = authState;
-          // this.isAuthenticated = authState.isAuthenticated;
           this.displayWelcome = authState.displayWelcome;
           console.log('authState is ', authState);
           if (!this.initialized) {
-            // this.loginPayLoad.apiid = 'getAuthGroup';
-            // this.loginPayLoad.methodname = 'getIBMAuthorizedGroup';
             this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
             this.initialized = true;
             this.store.dispatch(new ActionAuthLogin(this.loginPayLoad));
@@ -128,7 +119,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onLogoutClick() {
+   // alert('Logging out...');
+   // this.onLoginClick();
+    // this.router.navigate(['/welcome']);
     this.store.dispatch(new ActionAuthLogout());
-    this.router.navigate(['/welcome']);
   }
 }

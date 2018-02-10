@@ -19,7 +19,12 @@ import { catchError } from 'rxjs/operators/catchError';
 import { error } from 'util';
 import { of } from 'rxjs/observable/of';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
-import { ActionAuthAuthorize, AuthorizeResponse, ActionAuthAuthorizeSuccess, ActionAuthAuthorizeError } from './auth.reducer';
+import { Router } from '@angular/router';
+import { ActionAuthAuthorize,
+        AuthorizeResponse, ActionAuthAuthorizeSuccess,
+        ActionAuthAuthorizeError} from './auth.reducer';
+
+
 
 
 
@@ -28,7 +33,8 @@ export class AuthEffects {
   constructor(
     private actions$: Actions<Action>,
     private localStorageService: LocalStorageService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   @Effect()
@@ -42,7 +48,7 @@ export class AuthEffects {
             tap((data: AuthorizeResponse) =>
                   this.localStorageService.setItem(AUTH_KEY,
                     {
-                      selectedGroup: (data.status === '0') ? action.payload.selectedgroup
+                      selectedGroup: (data.status === '1') ? action.payload.selectedgroup
                          : this.localStorageService.getItem(AUTH_KEY).selectedGroup
                   })),
             map((data: AuthorizeResponse) => (
@@ -51,6 +57,15 @@ export class AuthEffects {
           )
           ))
       );
+  }
+
+  @Effect({dispatch: false})
+  authorizeSuccess(): Observable<any> {
+    return this.actions$
+      .ofType(AuthActionTypes.LOGIN_AUTHORIZE_SUCCESS)
+      .pipe(
+        tap((action) => this.router.navigate(['/dashboard']))
+      )
   }
 
   @Effect()
@@ -94,7 +109,8 @@ export class AuthEffects {
       .ofType(AuthActionTypes.LOGOUT)
       .pipe(
         tap(action =>
-          this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: false })
+          // this.localStorageService.setItem(AUTH_KEY, { isAuthenticated: false })
+          this.router.navigate(['/'])
         )
       );
   }

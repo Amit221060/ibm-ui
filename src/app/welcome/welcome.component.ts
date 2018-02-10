@@ -39,18 +39,20 @@ export class WelcomeComponent implements OnInit {
     console.log(values);
     this.payload = {apiid: 'getAuthGroup', methodname: 'getSelectedIBMGroupInfo', selectedgroup: values.selectedGroup};
     this.store.dispatch(new ActionAuthAuthorize(this.payload));
-    this.router.navigate(['/dashboard']);
+    // this.router.navigate(['/dashboard']);
   }
 
 
 
   ngOnInit() {
+    console.log('Welcome component called');
     this.store.select(state => state.auth).subscribe(authState => {
       this.alias = authState.alias;
       this.groups = authState.groups;
       this.loading = authState.loading;
       this.displayWelcome = authState.displayWelcome;
       this.selectedGroup = authState.selectedGroupCode;
+      console.log('Selected Group', this.selectedGroup);
       if (authState.errorMessage && authState.errorMessage.length > 0) {
         this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
       }
