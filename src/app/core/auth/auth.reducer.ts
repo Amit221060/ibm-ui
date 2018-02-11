@@ -81,7 +81,8 @@ export const initialState: AuthState = {
   isAuthenticated: false,
   displayWelcome: true,
   errorMessage: null,
-  loading: false
+  loading: false,
+  loadingMsg: ''
 };
 
 export const selectorAuth = (state: AppState) => state.auth;
@@ -96,6 +97,7 @@ export function authReducer(
         isAuthenticated: false,
         displayWelcome: true,
         loading: true,
+        loadingMsg: 'Identifying user',
         apiRequest: action.payload,
         // apiResponse: null,
         error: null
@@ -122,6 +124,7 @@ export function authReducer(
           selectedGroup: action.payload.selectedGroupCode,
           selectedGroupCode: action.payload.selectedGroupCode,
           loading: false,
+          loadingMsg: '',
           displayWelcome: true,
           error: null,
           apiRequest: null
@@ -133,6 +136,7 @@ export function authReducer(
           isAuthenticated: false,
           // displayWelcome: true,
           loading: false,
+          loadingMsg: '',
           errorMessage: action.payload.errorMessage,
           error: null
         };
@@ -142,7 +146,8 @@ export function authReducer(
           // displayWelcome: false,
           isAuthenticated: true,
           apiRequest: action.payload,
-          loading: true
+          loading: true,
+          loadingMsg: 'Retrieving role details...'
         };
     case AuthActionTypes.LOGIN_AUTHORIZE_SUCCESS:
     console.log(action.payload.data);
@@ -164,13 +169,15 @@ export function authReducer(
           apiRequest: null,
           error: null,
           displayWelcome: false,
-          loading: false
+          loading: false,
+          loadingMsg: ''
         }
     case AuthActionTypes.LOGIN_AUTHORIZE_ERROR:
 
         return {
             ...state,
             loading: false,
+            loadingMsg: '',
             errorMessage: action.payload.errorMessage,
             error: null
         };
@@ -186,6 +193,7 @@ export interface AuthState {
   appContext: AppContext
   apiRequest: any,
   loading: boolean;
+  loadingMsg: string;
   isAuthenticated: boolean;
   displayWelcome: boolean;
   errorMessage?: string;

@@ -29,6 +29,7 @@ export class WelcomeComponent implements OnInit {
     displayWelcome: boolean;
     errorMsg: string;
     selectedGroup: string;
+    loadingMsg: string;
   constructor(private router: Router,
               private store: Store<AppState>,
               private msgResource: MessageResoureService) {}
@@ -50,6 +51,7 @@ export class WelcomeComponent implements OnInit {
       this.alias = authState.alias;
       this.groups = authState.groups;
       this.loading = authState.loading;
+      this.loadingMsg = authState.loadingMsg;
       this.displayWelcome = authState.displayWelcome;
       this.selectedGroup = authState.selectedGroupCode;
       // console.log('Selected Group', this.selectedGroup);

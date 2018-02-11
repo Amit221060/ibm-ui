@@ -5,7 +5,7 @@
 <!-- Here is the value {{(authState$ | async).displayWelcome && (authState$ | async).loading}} -->
 <div class="welcome-loading" *ngIf="loading">
     <mat-spinner></mat-spinner>
-    <p class="display-4">Identifying user...</p>
+    <p class="display-4">{{loadingMsg}}</p>
 </div>
 <div *ngIf="displayWelcome && !loading">
   <div class="jumbotron jumbotron-fluid leadspace-background">
