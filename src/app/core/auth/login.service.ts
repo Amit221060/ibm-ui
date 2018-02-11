@@ -15,18 +15,26 @@ export class LoginService {
 
   login(payload: LoginRequest): Observable<LoginResponse> {
     console.log('login service called');
-    const connector: ApiConnector = this.apiConnector.getClient('api/get/');
+    const connector: ApiConnector = this.apiConnector.getClient('api/get/', payload);
     // return this.httpClient.get<LoginResponse>('/api/get', {params: params});
-    const url = connector.apiUrl + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname;
+    const url = connector.apiUrl + this.getQueryString(connector.reqPayLoad);
+    //  + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname;
     return connector.apiClient.get<LoginResponse>(url, connector.options);
   }
 
   authorize(payload: AuthorizedRequest): Observable<AuthorizeResponse> {
     console.log('authorize service called');
-    const connector: ApiConnector = this.apiConnector.getClient('api/get/');
-    const url = connector.apiUrl + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname
-                  + '&selectedgroup=' + payload.selectedgroup;
+    const connector: ApiConnector = this.apiConnector.getClient('api/get/', payload);
+    const url = connector.apiUrl + this.getQueryString(connector.reqPayLoad);
+    //  + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname
+    //               + '&selectedgroup=' + payload.selectedgroup;
     return connector.apiClient.get<AuthorizeResponse>(url, connector.options);
+  }
+
+  getQueryString(params): string {
+    const queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+    console.log('QUERY STRING', queryString);
+    return ('?' + queryString);
   }
 
 }

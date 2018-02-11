@@ -52,7 +52,7 @@ export class WelcomeComponent implements OnInit {
       this.loading = authState.loading;
       this.displayWelcome = authState.displayWelcome;
       this.selectedGroup = authState.selectedGroupCode;
-      console.log('Selected Group', this.selectedGroup);
+      // console.log('Selected Group', this.selectedGroup);
       if (authState.errorMessage && authState.errorMessage.length > 0) {
         this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
       }

@@ -15,6 +15,8 @@ module.exports = function(app, config) {
   app.get('/api/get', restcontroller.doGet);
   app.post('/api/post', restcontroller.doPost);
 
+  app.get('/api/test', restcontroller.doGttps);
+
 	// Catch all other routes and return the index file
 	app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../dist/index.html'));

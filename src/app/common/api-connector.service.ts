@@ -10,11 +10,12 @@ import { initialState } from '../core/auth/auth.reducer';
 export class ApiConnectorService {
   context: AppContext;
   httpOptions: any;
+  // apiRequest: any;
 
   constructor(private httpClient: HttpClient, private store: Store<AppState>) { }
 
 
-  getClient(url: string): ApiConnector {
+  getClient(url: string, reqPayLoad: any): ApiConnector {
     this.store.select(state => state.auth.appContext).subscribe(context => {
       // console.log('Context', context);
       this.context = context ? context : initialState.appContext;
@@ -27,11 +28,33 @@ export class ApiConnectorService {
           'X-Context-geo': this.context.geo,
           'X-Context-Id': this.context.uniqueid
         })
-      }
+      };
+      if (reqPayLoad) {
+        reqPayLoad.accept = 'application/json;charset=utf-8';
+        reqPayLoad.acceptCharset = 'charset=utf-8';
+        reqPayLoad.forceContentType = 'application/json; charset=UTF-8';
+        reqPayLoad.contectGroup = this.context.group;
+        reqPayLoad.contextGeo = this.context.geo;
+        reqPayLoad.contextId = this.context.uniqueid;
+    } else {
+      reqPayLoad = {
+          'accept':  'application/json;charset=utf-8',
+          'acceptCharset': 'charset=utf-8',
+          'forceContentType': 'application/json; charset=UTF-8',
+          'contectGroup': this.context.group,
+          'contextGeo': this.context.geo,
+          'contextId': this.context.uniqueid
+        }
+    }
       console.log('within selector of store');
     });
     console.log('before returning');
-    return {apiUrl: this.context.baseUrl + url, apiClient: this.httpClient, options: this.httpOptions}
+    return {
+              apiUrl: this.context.baseUrl + url,
+              apiClient: this.httpClient,
+              options: this.httpOptions,
+              reqPayLoad: reqPayLoad
+            }
   }
 
 }

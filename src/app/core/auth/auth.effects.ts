@@ -51,8 +51,9 @@ export class AuthEffects {
                       selectedGroup: (data.status === '1') ? action.payload.selectedgroup
                          : this.localStorageService.getItem(AUTH_KEY).selectedGroup
                   })),
-            map((data: AuthorizeResponse) => (
-                        new ActionAuthAuthorizeSuccess({data})
+            map((data: AuthorizeResponse) => ((data.status === '1') ?
+                        new ActionAuthAuthorizeSuccess({data}) :
+                        new ActionAuthAuthorizeError({errorMessage: data.message})
                         )
           )
           ))

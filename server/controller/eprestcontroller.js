@@ -1,17 +1,49 @@
 const superagent = require('superagent');
+var https = require('https');
+var path = require('path');
+var fs = require('fs');
+var rootPath = path.normalize(__dirname+'/../../');
+/* test https */
+exports.doGttps = function(req, res) {
+  console.log('root path is ###########', rootPath);
+  var cert = fs.readFileSync(rootPath+'/il4174_cert.crt');
+  superagent.get('https://inmbzp4174.in.dst.ibm.com/services/epricer/v2/ibm/api/rest/get')
+  .auth('kiranchowdhury@in.ibm.com','kir@n!@m_79')
+  .query(req.query)
+  .set('accept','json')
+  .cert(cert)
+  .end((err, api_res)=> {
+    if(err) {
+      console.log('API Error', err)
+    } else {
+      res.send(api_res.body);
+    }
+
+  });
+};
 
 exports.doGet = function(req, res) {
+  var queryString = req.query;
   console.log("Query String is ", req.query);
-  if(req.query && req.query.methodname === 'getSelectedIBMGroupInfo')
+  if(req.query && req.query.methodname === 'getSelectedIBMGroupInfos')
   {
     res.send(authorizeResp);
   } else {
     superagent.get('http://localhost:9080/services/epricer/v2/ibm/api/rest/get')
-    .auth('kiranchowdhury@in.ibm.com','********')
+    .auth('kiranchowdhury@in.ibm.com','kr@n!@m_79')
     .query(req.query)
-    .set('accept','json')
+    .set('Accept', queryString.accept)
+    .set('X-Force-Content-Type', queryString.forceContentType)
+    .set('X-Context-geo', queryString.contextGeo)
+    .set('X-Context-Group', queryString.contectGroup)
+    .set('X-Context-Id', queryString.contextId)
     .end((err, api_res)=> {
-      res.send(api_res.body);
+      if(err) {
+        console.log("Error from API", err);
+        res.send({status: "0", message: 'ET_000', items: []});
+      } else {
+        res.send(api_res.body);
+      }
     });
   }
 
