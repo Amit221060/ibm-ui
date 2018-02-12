@@ -1,4 +1,4 @@
-# e-Pricer built with Angular, ngrx and Angular Material Starter 
+# e-Pricer built with Angular5, ngrx and Angular Material Design 
 by [@kiranchowdhury](https://www.facebook.com/kiran.s.chowdhury)
 
 
@@ -17,14 +17,13 @@ Installing the app -
 npm install
 
 Development mode -
- - Start the local Liberty profile server
- - In the eprestcontroller.js configure the liberty url, userid and password
+ - In the config.js configure the userid and password
  - to start the node backend (BFF) execute: npm run node:start
  - to start the frontend execute: npm run start
  - Browser will automatically open and application will be launched
 
 Production mode
- - In the eprestcontroller.js configure the liberty url, userid and password
+ - In the config.js configure the userid and password
  - npm run node:prod
 ```
 
