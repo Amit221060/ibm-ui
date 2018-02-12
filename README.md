@@ -1,7 +1,6 @@
 # e-Pricer built with Angular5, ngrx and Angular Material Design 
 by [@kiranchowdhury](https://www.facebook.com/kiran.s.chowdhury)
 
-
 ## Table of Content
 
   * [Getting Started](#getting-started)
@@ -27,12 +26,14 @@ npm install
 cd ibm-ui
 
 6. Steps to run while you are in development mode -
+(The Frond end will be served from http-server and the node BFF will be served from Node HTTP Server. A ng cli proxy has been configured to resolve the cross domeanin security issue. When you run the app development mode, your change will automatically be published and reloaded in the browser.)
  - In the config.js configure the userid and password
  - to start the node backend (BFF) execute: npm run node:start
  - to start the frontend execute: npm run start
  - Chrome Browser will automatically open and application will be launched
 
-Production mode
+7. Running the app production mode
+(Both the front end and BFF will be serverd from Node Http Server)
  - In the config.js configure the userid and password
  - npm run node:prod
 ```
