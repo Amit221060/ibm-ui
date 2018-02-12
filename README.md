@@ -25,6 +25,9 @@ Development mode -
 Production mode
  - In the config.js configure the userid and password
  - npm run node:prod
+
+ Time Travel Debugging -
+ Download the [Redux Devtools Extension](http://zalmoxisus.github.io/redux-devtools-extension/)
 ```
 
 ## Useful Commands
