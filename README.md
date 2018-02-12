@@ -11,23 +11,30 @@ by [@kiranchowdhury](https://www.facebook.com/kiran.s.chowdhury)
 
 ## Getting started
 ```bash
+1. Install node from - https://nodejs.org/en/download/
+(Make sure the version of node is 8.9.x or later)
+
+2. Install Google Chorome if not installed already
+
+3. Time Travel Debugging -
+Download the [Redux Devtools Extension](http://zalmoxisus.github.io/redux-devtools-extension/)
+
+4. Clone the project from git -
 git clone https://github.com/kiranchowdhury/ibm-ui.git
 
-Installing the app -
+5. Installing the app -
 npm install
+cd ibm-ui
 
-Development mode -
+6. Steps to run while you are in development mode -
  - In the config.js configure the userid and password
  - to start the node backend (BFF) execute: npm run node:start
  - to start the frontend execute: npm run start
- - Browser will automatically open and application will be launched
+ - Chrome Browser will automatically open and application will be launched
 
 Production mode
  - In the config.js configure the userid and password
  - npm run node:prod
-
- Time Travel Debugging -
- Download the [Redux Devtools Extension](http://zalmoxisus.github.io/redux-devtools-extension/)
 ```
 
 ## Useful Commands
@@ -63,3 +70,4 @@ Production mode
 ### Acknowledgements
 
 Built with and uses [Angular CLI](https://github.com/angular/angular-cli)
+
