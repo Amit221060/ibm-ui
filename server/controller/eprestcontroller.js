@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+const config = require('../config/config');
 var https = require('https');
 var path = require('path');
 var fs = require('fs');
@@ -6,8 +7,8 @@ var rootPath = path.normalize(__dirname+'/../../');
 /* test https */
 exports.doGttps = function(req, res) {
   console.log('root path is ###########', rootPath);
-  var cert = fs.readFileSync(rootPath+'/il4174_cert.crt');
-  superagent.get('https://inmbzp4174.in.dst.ibm.com/services/epricer/v2/ibm/api/rest/get')
+  var cert = fs.readFileSync(rootPath+'/1109.crt');
+  superagent.get('https://inmbz1109.in.dst.ibm.com/services/epricer/v2/ibm/api/rest/get')
   .auth('kiranchowdhury@in.ibm.com','kir@n!@m_79')
   .query(req.query)
   .set('accept','json')
@@ -24,13 +25,21 @@ exports.doGttps = function(req, res) {
 
 exports.doGet = function(req, res) {
   var queryString = req.query;
+  var backendServer = queryString.backendServer && queryString.backendServer.length > 0 ?
+                      queryString.backendServer : 'cdtdevbc';
+
+  var apiUrl = config[backendServer].apiUrl;
+  console.log('API URL', apiUrl);
+  var certPath = config[backendServer].certPath;
+  console.log('Cert path', certPath);
+  var cert = fs.readFileSync(certPath);
+  var id = config[backendServer].id;
+  var pwd = config[backendServer].pwd;
   console.log("Query String is ", req.query);
-  if(req.query && req.query.methodname === 'getSelectedIBMGroupInfos')
-  {
-    res.send(authorizeResp);
-  } else {
-    superagent.get('http://localhost:9080/services/epricer/v2/ibm/api/rest/get')
-    .auth('kiranchowdhury@in.ibm.com','kr@n!@m_79')
+
+    superagent.get(apiUrl+'/api/rest/get')
+    .auth(id,pwd)
+    .cert(cert)
     .query(req.query)
     .set('Accept', queryString.accept)
     .set('X-Force-Content-Type', queryString.forceContentType)
@@ -39,13 +48,12 @@ exports.doGet = function(req, res) {
     .set('X-Context-Id', queryString.contextId)
     .end((err, api_res)=> {
       if(err) {
-        console.log("Error from API", err);
+        console.log("Error from API", api_res);
         res.send({status: "0", message: 'ET_000', items: []});
       } else {
         res.send(api_res.body);
       }
     });
-  }
 
 
    //res.send(loginResp);

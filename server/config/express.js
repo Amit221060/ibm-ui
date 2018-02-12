@@ -24,7 +24,7 @@ module.exports = function(app, config) {
 	/**
 	 * Get port from environment and store in Express.
 	 */
-	const port = config.port;
+	const port = 3030;
   app.set('port', port);
 	/**
 	 * Create HTTP server.
@@ -33,5 +33,6 @@ module.exports = function(app, config) {
 	/**
 	 * Listen on provided port, on all network interfaces.
 	 */
-	server.listen(port, () => console.log(`API running on localhost:${port}`));
+
+	server.listen(port, 'localhost' ,() => console.log(`API running on localhost:${port}`));
 };
