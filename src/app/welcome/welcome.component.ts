@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from '../core/models/app-state';
 import { Store } from '@ngrx/store';
-import { AuthState, Group, ActionAuthLogin, ActionAuthAuthorize, AuthorizedRequest } from '../core/auth/auth.reducer';
+import { AuthState, Group, ActionAuthLogin, ActionAuthAuthorize, AuthorizedRequest, LoginRequest } from '../core/auth/auth.reducer';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Subject } from 'rxjs/Subject';
 import { ApiInfo } from '@app/core/models/api-info';
@@ -17,6 +17,8 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  initialized: boolean;
+  loginPayLoad: LoginRequest;
   private unsubscribe$: Subject<void> = new Subject<void>();
   authState$: Observable<AuthState>;
   landingicon = require('../../assets/landing_icon_computer.png');
@@ -47,7 +49,8 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     console.log('Welcome component called');
-    this.store.select(state => state.auth).subscribe(authState => {
+    this.store.select(state => state.auth).
+    subscribe(authState => {
       this.alias = authState.alias;
       this.groups = authState.groups;
       this.loading = authState.loading;
@@ -55,8 +58,13 @@ export class WelcomeComponent implements OnInit {
       this.displayWelcome = authState.displayWelcome;
       this.selectedGroup = authState.selectedGroupCode;
       // console.log('Selected Group', this.selectedGroup);
-      if (authState.errorMessage && authState.errorMessage.length > 0) {
-        this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
+      // if (authState.errorMessage && authState.errorMessage.length > 0) {
+      //   this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
+      // }
+      if (!this.initialized) {
+        this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
+        this.initialized = true;
+        this.store.dispatch(new ActionAuthLogin(this.loginPayLoad));
       }
     });
   }

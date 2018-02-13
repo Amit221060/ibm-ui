@@ -20,6 +20,7 @@ import { error } from 'util';
 import { of } from 'rxjs/observable/of';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { Router } from '@angular/router';
+import { ActionAuthSignIn, ActionAuthSignInSuccess, ActionAuthSignInFail } from './auth.reducer';
 import { ActionAuthAuthorize,
         AuthorizeResponse, ActionAuthAuthorizeSuccess,
         ActionAuthAuthorizeError} from './auth.reducer';
@@ -70,6 +71,31 @@ export class AuthEffects {
   }
 
   @Effect()
+  signin(): Observable<Action> {
+    return this.actions$
+      .ofType(AuthActionTypes.AUTH_SIGNIN_IN)
+      .pipe(
+        switchMap((action: ActionAuthSignIn) =>
+          this.loginService.signin(action.payload)
+          .pipe(
+            map((data) => (data.status  === '1' ?
+            new ActionAuthSignInSuccess(data.items[0].email)
+                        : new ActionAuthSignInFail({errorMessage: data.message}))
+          )
+          ))
+      );
+  }
+
+  @Effect({dispatch: false})
+  signInSuccess(): Observable<any> {
+    return this.actions$
+      .ofType(AuthActionTypes.AUTH_SIGN_IN_SUCCESS)
+      .pipe(
+        tap((action) => this.router.navigate(['/welcome']))
+      )
+  }
+
+  @Effect()
   login(): Observable<Action> {
     return this.actions$
       .ofType(AuthActionTypes.LOGIN)
@@ -90,6 +116,7 @@ export class AuthEffects {
           ))
       );
   }
+
 
   getSelectedGroup(data: LoginResponse): string {
       let group = '';

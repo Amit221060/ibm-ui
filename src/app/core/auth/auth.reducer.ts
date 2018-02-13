@@ -12,8 +12,9 @@ import { LocalStorageService } from '@app/core';
 export const AUTH_KEY = 'AUTH';
 
 export enum AuthActionTypes {
-  CREATE_CONTEXT = '[Auth] Create Context',
-  REMOVE_CONTEXT = '[Auth] Remove Context',
+  AUTH_SIGNIN_IN = '[Auth] Sign In',
+  AUTH_SIGN_IN_SUCCESS = '[Auth] Sign In Success',
+  AUTH_SIGN_IN_FAIL = '[Auth] Sign In Fail',
   LOGIN = '[Auth] Login',
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_UNAUTHORIZED_ERROR= '[Auth] Login Unauthorized',
@@ -22,6 +23,22 @@ export enum AuthActionTypes {
   LOGIN_AUTHORIZE_SUCCESS = '[Auth] Authorize Success',
   LOGIN_AUTHORIZE_ERROR = '[Auth] Authorize Error',
   LOGOUT = '[Auth] Logout'
+}
+
+export class ActionAuthSignIn implements Action {
+  readonly type = AuthActionTypes.AUTH_SIGNIN_IN;
+  constructor(public payload: {username: string, password: string, env: string}) {}
+}
+
+
+export class ActionAuthSignInSuccess implements Action {
+  readonly type = AuthActionTypes.AUTH_SIGN_IN_SUCCESS;
+  constructor(public userEmail: string) {}
+}
+
+export class ActionAuthSignInFail implements Action {
+  readonly type = AuthActionTypes.AUTH_SIGN_IN_FAIL;
+  constructor(public payload: {errorMessage: string}) {}
 }
 
 export class ActionAuthLogin implements Action {
@@ -73,13 +90,16 @@ export type AuthActions = ActionAuthLogin
                         | ActionAuthAuthorizeSuccess
                         | ActionAuthAuthorizeError
                         | ActionAuthLogout
+                        | ActionAuthSignIn
+                        | ActionAuthSignInSuccess
+                        | ActionAuthSignInFail
 
 
 export const initialState: AuthState = {
   appContext: {baseUrl: '/', geo: '', uniqueid: '', group: '', email: ''},
   apiRequest: {apiid: '', methodname: ''},
   isAuthenticated: false,
-  displayWelcome: true,
+  displayWelcome: false,
   errorMessage: null,
   loading: false,
   loadingMsg: ''
@@ -91,11 +111,36 @@ export function authReducer(
   action: AuthActions
 ): AuthState {
   switch (action.type) {
+    case AuthActionTypes.AUTH_SIGNIN_IN:
+      return {
+        ...state,
+        loading: true,
+        loadingMsg: 'Sigining In',
+        apiRequest: action.payload
+      }
+    case AuthActionTypes.AUTH_SIGN_IN_SUCCESS:
+      console.log('Sign In Success Response', action.userEmail)
+      return {
+        ...state,
+       appContext: {baseUrl: '/', email: action.userEmail, geo: '', uniqueid: action.userEmail, group: ''},
+        loading: false,
+        loadingMsg: '',
+        apiRequest: null,
+        isAuthenticated: true
+      }
+      case AuthActionTypes.AUTH_SIGN_IN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        loadingMsg: '',
+        apiRequest: null,
+        isAuthenticated: false
+      }
     case AuthActionTypes.LOGIN:
       return {
         ...state,
-        isAuthenticated: false,
-        displayWelcome: true,
+        isAuthenticated: true,
+        // displayWelcome: true,
         loading: true,
         loadingMsg: 'Identifying user',
         apiRequest: action.payload,
@@ -144,10 +189,10 @@ export function authReducer(
         return {
           ...state,
           // displayWelcome: false,
-          isAuthenticated: true,
+          // isAuthenticated: true,
           apiRequest: action.payload,
           loading: true,
-          loadingMsg: 'Retrieving role details...'
+          loadingMsg: 'Starting ePricer...'
         };
     case AuthActionTypes.LOGIN_AUTHORIZE_SUCCESS:
     console.log(action.payload.data);

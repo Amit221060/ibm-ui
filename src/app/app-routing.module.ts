@@ -3,12 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SettingsComponent } from './settings';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'welcome',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {title: 'Sign In'}
   },
   {
     path: 'welcome',
@@ -45,7 +51,7 @@ const routes: Routes = [
   // },
   {
     path: '**',
-    redirectTo: 'welcome'
+    redirectTo: 'login'
   }
 ];
 

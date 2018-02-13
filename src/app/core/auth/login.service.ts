@@ -13,6 +13,15 @@ export class LoginService {
 
   constructor(private apiConnector: ApiConnectorService) { }
 
+  signin(payLoad: {username: string, password: string, env: string}):
+  Observable<{status: string, message?: string, items: [{isAuthenticated: boolean, email?: string}]}> {
+    console.log('login service called');
+    const connector: ApiConnector = this.apiConnector.getClient('api/login/', payLoad);
+    return connector.apiClient.post<
+    {status: string, message?: string, items: [{isAuthenticated: boolean, email?: string}]}
+    >(connector.apiUrl, payLoad);
+  }
+
   login(payload: LoginRequest): Observable<LoginResponse> {
     console.log('login service called');
     const connector: ApiConnector = this.apiConnector.getClient('api/get/', payload);

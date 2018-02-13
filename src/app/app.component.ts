@@ -31,6 +31,7 @@ import { Observable } from 'rxjs/Observable';
   animations: [routerTransition]
 })
 export class AppComponent implements OnInit, OnDestroy {
+  isAuthenticate: boolean;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   @HostBinding('class') componentCssClass;
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ...this.navigation,
     { link: 'settings', label: 'Settings' }
   ];
-  displayWelcome: boolean;
+  displayWelcome = true;
   initialized = false;
   loginPayLoad: LoginRequest;
   constructor(
@@ -83,13 +84,18 @@ export class AppComponent implements OnInit, OnDestroy {
       .select(selectorAuth)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((authState: AuthState) => {
-          this.displayWelcome = authState.displayWelcome;
-          console.log('authState is ', authState);
-          if (!this.initialized) {
-            this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
-            this.initialized = true;
-            this.store.dispatch(new ActionAuthLogin(this.loginPayLoad));
+          if (authState.displayWelcome === undefined) {
+            this.displayWelcome = true;
+          } else {
+            this.displayWelcome = authState.displayWelcome;
           }
+          this.isAuthenticate = authState.isAuthenticated;
+          console.log('authState is ', authState);
+          // if (!this.initialized) {
+          //   this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
+          //   this.initialized = true;
+          //   this.store.dispatch(new ActionAuthLogin(this.loginPayLoad));
+          // }
       });
 
     this.router.events

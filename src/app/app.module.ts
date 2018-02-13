@@ -14,7 +14,8 @@ import { CommonModule } from '@angular/common';
 import { MessageResoureService } from './common/message-resoure.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { QuoteactionsModule } from './quoteactions/quoteactions.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     // core & shared
     CoreModule,
     SharedModule,
@@ -38,7 +40,7 @@ import { FormsModule } from '@angular/forms';
 
     QuoteactionsModule
   ],
-  declarations: [AppComponent, WelcomeComponent],
+  declarations: [AppComponent, WelcomeComponent, LoginComponent],
   providers: [MessageResoureService],
   bootstrap: [AppComponent]
 })

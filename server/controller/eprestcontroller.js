@@ -23,6 +23,33 @@ exports.doGttps = function(req, res) {
   });
 };
 
+exports.login = function(req, res) {
+  var payload = req.body;
+  var backendServer = payload.env;
+  var email = payload.username;
+  var pwd = payload.password;
+  var apiUrl = config[backendServer].apiUrl;
+  var certPath = config[backendServer].certPath;
+  console.log('Cert path', certPath);
+  var cert = fs.readFileSync(certPath);
+  superagent.get(apiUrl+'/api/rest/get?apiid=getAuthGroup&methodname=getIBMAuthorizedGroup')
+  .auth(email, pwd)
+  .cert(cert)
+  .end((error, api_resp) => {
+    if(error) {
+      res.send({status: "0", message: 'ET_000', items: [{isAuthenticated: false}]});
+    } else if(api_resp.status === 200){
+      res.send({status: "1", message: 'SUCCESS', items: [{isAuthenticated: true, email: email}]});
+    } else if(api_resp.status === 401) {
+      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_UNAUTHORIZED', items: [{isAuthenticated: false}]});
+    } else if(api_resp.status === 400) {
+      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_NOT_FOUND', items: [{isAuthenticated: false}]});
+    } else if(api_resp.status === 500) {
+      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR', items: [{isAuthenticated: false}]});
+    }
+  });
+};
+
 exports.doGet = function(req, res) {
   var queryString = req.query;
   var backendServer = queryString.backendServer && queryString.backendServer.length > 0 ?
@@ -48,9 +75,10 @@ exports.doGet = function(req, res) {
     .set('X-Context-Id', queryString.contextId)
     .end((err, api_res)=> {
       if(err) {
-        console.log("Error from API", api_res);
+        console.log("Error from API", api_res.status);
         res.send({status: "0", message: 'ET_000', items: []});
       } else {
+        console.log("HTTP STATUS CODE = "+api_res.status);
         res.send(api_res.body);
       }
     });
