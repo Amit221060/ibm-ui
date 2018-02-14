@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SettingsComponent } from './settings';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './core/guard/login.guard';
 
 const routes: Routes = [
   {
@@ -19,24 +20,28 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent,
+    canActivate: [LoginGuard],
     data: {
       title: 'Welcome'
     }
   },
   {
     path: 'dashboard',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
+    canActivate: [LoginGuard]
     // loadChildren: 'app/dashboard/dashboard.module#DashboardModule'
   },
   {
     path: 'myquotes',
     // loadChildren: 'app/quoteactions/quoteactions.module#QuoteactionsModule'
-    redirectTo: 'myquotes'
+    redirectTo: 'myquotes',
+    canActivate: [LoginGuard]
   },
   {
     path: 'searchquotes',
     // loadChildren: 'app/quoteactions/quoteactions.module#QuoteactionsModule'
-    redirectTo: 'searchquotes'
+    redirectTo: 'searchquotes',
+    canActivate: [LoginGuard],
   },
   {
     path: 'settings',

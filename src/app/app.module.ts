@@ -16,6 +16,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { QuoteactionsModule } from './quoteactions/quoteactions.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './core/guard/login.guard';
+
 
 @NgModule({
   imports: [
@@ -41,7 +43,7 @@ import { LoginComponent } from './login/login.component';
     QuoteactionsModule
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent],
-  providers: [MessageResoureService],
+  providers: [MessageResoureService, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
