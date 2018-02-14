@@ -36,8 +36,9 @@ exports.login = function(req, res) {
   .auth(email, pwd)
   .cert(cert)
   .end((error, api_resp) => {
+    // console.log('LOGIN STATUS ', api_res.status);
     if(error) {
-      res.send({status: "0", message: 'ET_000', items: [{isAuthenticated: false}]});
+      res.send({status: "0", message: 'Login Error - Invalid Credential', items: [{isAuthenticated: false}]});
     } else if(api_resp.status === 200){
       res.send({status: "1", message: 'SUCCESS', items: [{isAuthenticated: true, email: email}]});
     } else if(api_resp.status === 401) {

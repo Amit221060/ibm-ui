@@ -32,7 +32,7 @@
       <p class="loginButtons" *ngIf="!(loading$ | async)">
         <button type="submit" mat-raised-button color="primary">Login</button>
       </p>
-      <div class="signin-loading" *ngIf="(loading$ | async)">
+      <div *ngIf="(loading$ | async)">
           <mat-spinner></mat-spinner>
           <p class="display-4">{{loadingMsg$ | async}}</p>
       </div>

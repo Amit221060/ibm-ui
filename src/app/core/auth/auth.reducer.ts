@@ -134,7 +134,8 @@ export function authReducer(
         loading: false,
         loadingMsg: '',
         apiRequest: null,
-        isAuthenticated: false
+        isAuthenticated: false,
+        errorMessage: action.payload.errorMessage
       }
     case AuthActionTypes.LOGIN:
       return {
