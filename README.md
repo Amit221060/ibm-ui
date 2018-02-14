@@ -1,5 +1,31 @@
-# e-Pricer built with Angular5, ngrx and Angular Material Design 
+# ePricer skeleton app - built with Angular5 + Redux pattern + TypeScript + Webpack + Angular Material Design.
 by [@kiranchowdhury](https://www.facebook.com/kiran.s.chowdhury)
+The intention of this repository is to modernize the frontend devolopment of ePricer. This repository provides the skeleton for ePricer UI using [Angular5], It also uses [Angular Material Design] for various UI components, [NPM](https://github.com/npm/npm) as package manager, [TypeScript](https://github.com/Microsoft/TypeScript) and [Webpack](https://github.com/webpack/webpack) as module loader.
+
+## Features - Technical
+- [x] TypeScript
+- [x] TSLint
+- [x] @types
+- [x] Webpack 3
+- [ ] Karma + Jasmine (Comming Soon)
+- [ ] Protractor
+- [x] Styling using SASS
+- [x] NPM
+- [x] Code Coverage
+- [x] Angular 5
+- [x] Lazy-loading
+- [x] Lazy reducers
+- [x] LocalStorage ui state persistence
+- [x] `@ngrx/effects` for API requests
+- [x] Time travel debigging capability
+- [x] angular-material and custom components in `SharedModule`
+- [x] Production build containing chunks
+
+## Features - Functional
+- [x] Custom themes support (3 themes included)
+- [x] Fully responsive design
+
+
 
 ## Table of Content
 
@@ -63,18 +89,6 @@ Open another terminal and then run => "npm run start"
 
   * [Blog post](https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1)
 
-
- 
-## Features
-
-* custom themes support (3 themes included)
-* lazy-loading of Manage quotes module
-* lazy reducers
-* localStorage ui state persistence
-* `@ngrx/effects` for API requests
-* fully responsive design
-* angular-material and custom components in `SharedModule`
- 
 
 ### Acknowledgements
 
