@@ -21,14 +21,14 @@ Download the [Redux Devtools Extension](http://zalmoxisus.github.io/redux-devtoo
 4. IDE => I prefer to use Visual Studio Code.. but any IDE of your choice will be ok. You can install
 the Visual Studio Code from here (https://code.visualstudio.com/download).
 
-4. Clone the project from git -
+5. Clone the project from git -
 git clone https://github.com/kiranchowdhury/ibm-ui.git
 
-5. Installing the app -
+6. Installing the app -
 npm install
 cd ibm-ui
 
-6. Steps to run while you are in development mode -
+7. Steps to run while you are in development mode -
 (The Frond end will be served from http-server and the node BFF will be served from Node HTTP Server.
 A ng cli proxy has been configured to resolve the cross domeanin security issue.
 When you run the app development mode, your change will automatically be published and
@@ -40,7 +40,7 @@ Open a terminal/cmd promt and then run => "npm run node:start"
 Open another terminal and then run => "npm run start"
  - Chrome Browser will automatically open and application will be launched
 
-7. Running the app in production mode
+8. Running the app in production mode
 (Both the front end and BFF will be serverd from Node Http Server)
  - In the config.js configure the userid and password
  - npm run node:prod
