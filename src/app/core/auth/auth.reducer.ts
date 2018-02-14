@@ -162,7 +162,13 @@ export function authReducer(
       console.log('Login response ', item);
       return {
           ...state,
-          appContext: {baseUrl: '/', email: item.email, geo: '', uniqueid: item.email, group: action.payload.selectedGroupCode},
+          appContext: {
+                        baseUrl: '/',
+                        email: item.email, geo: '',
+                        uniqueid: item.email,
+                        group: action.payload.selectedGroupCode,
+                        token: state.appContext.token
+                      },
           isAuthenticated: true,
           // apiResponse: action.payload.data,
           status: resp.status,
@@ -213,7 +219,8 @@ export function authReducer(
                         baseUrl: '/',
                         email: state.appContext.email,
                         geo: authRespItem.geo, uniqueid: state.appContext.email,
-                        group: state.appContext.group
+                        group: state.appContext.group,
+                        token: state.appContext.token
                       },
           selectedGroupCode: authRespItem.selectedgroup,
           selectedGroupname: authRespItem.selectedgroupname,
