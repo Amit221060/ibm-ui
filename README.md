@@ -18,6 +18,9 @@ by [@kiranchowdhury](https://www.facebook.com/kiran.s.chowdhury)
 3. Time Travel Debugging -
 Download the [Redux Devtools Extension](http://zalmoxisus.github.io/redux-devtools-extension/)
 
+4. IDE => I prefer to use Visual Studio Code.. but any IDE of your choice will be ok. You can install
+the Visual Studio Code from here (https://code.visualstudio.com/download).
+
 4. Clone the project from git -
 git clone https://github.com/kiranchowdhury/ibm-ui.git
 
