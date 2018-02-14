@@ -79,7 +79,7 @@ export class AuthEffects {
           this.loginService.signin(action.payload)
           .pipe(
             map((data) => (data.status  === '1' ?
-            new ActionAuthSignInSuccess(data.items[0].email)
+            new ActionAuthSignInSuccess({userEmail: data.items[0].email, token: data.token})
                         : new ActionAuthSignInFail({errorMessage: data.message}))
           )
           ))

@@ -12,7 +12,7 @@ export class MessageResoureService {
       case MessageCodes.EP_USER_UNAUTHORIZED:
         return 'You are not authorized to use ePricer application';
       default:
-        return 'Technical Error - Please contact e-Pricer administrator';
+        return 'Technical Error: Please contact ePricer administrator';
     }
   }
 

@@ -58,9 +58,9 @@ export class WelcomeComponent implements OnInit {
       this.displayWelcome = authState.displayWelcome;
       this.selectedGroup = authState.selectedGroupCode;
       // console.log('Selected Group', this.selectedGroup);
-      // if (authState.errorMessage && authState.errorMessage.length > 0) {
-      //   this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
-      // }
+      if (authState.errorMessage && authState.errorMessage.length > 0) {
+        this.errorMsg = this.msgResource.getMessage(authState.errorMessage);
+      }
       if (!this.initialized) {
         this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
         this.initialized = true;

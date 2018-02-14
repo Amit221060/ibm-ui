@@ -33,7 +33,7 @@ export class ActionAuthSignIn implements Action {
 
 export class ActionAuthSignInSuccess implements Action {
   readonly type = AuthActionTypes.AUTH_SIGN_IN_SUCCESS;
-  constructor(public userEmail: string) {}
+  constructor(public payload: {userEmail: string, token?: string}) {}
 }
 
 export class ActionAuthSignInFail implements Action {
@@ -119,10 +119,16 @@ export function authReducer(
         apiRequest: action.payload
       }
     case AuthActionTypes.AUTH_SIGN_IN_SUCCESS:
-      console.log('Sign In Success Response', action.userEmail)
       return {
         ...state,
-       appContext: {baseUrl: '/', email: action.userEmail, geo: '', uniqueid: action.userEmail, group: ''},
+       appContext: {
+                      baseUrl: '/',
+                      email: action.payload.userEmail,
+                      geo: '',
+                      uniqueid: action.payload.userEmail,
+                      group: '',
+                      token: action.payload.token
+                    },
         loading: false,
         loadingMsg: '',
         apiRequest: null,
@@ -183,6 +189,7 @@ export function authReducer(
           // displayWelcome: true,
           loading: false,
           loadingMsg: '',
+          displayWelcome: true,
           errorMessage: action.payload.errorMessage,
           error: null
         };

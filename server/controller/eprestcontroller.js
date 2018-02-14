@@ -1,55 +1,45 @@
-const superagent = require('superagent');
-const config = require('../config/config');
+var superagent = require('superagent');
+var config = require('../config/config');
 var https = require('https');
 var path = require('path');
 var fs = require('fs');
+var jwt    = require('jsonwebtoken');
 var rootPath = path.normalize(__dirname+'/../../');
-/* test https */
-exports.doGttps = function(req, res) {
-  console.log('root path is ###########', rootPath);
-  var cert = fs.readFileSync(rootPath+'/1109.crt');
-  superagent.get('https://inmbz1109.in.dst.ibm.com/services/epricer/v2/ibm/api/rest/get')
-  .auth('kiranchowdhury@in.ibm.com','kir@n!@m_79')
-  .query(req.query)
-  .set('accept','json')
-  .cert(cert)
-  .end((err, api_res)=> {
-    if(err) {
-      console.log('API Error', err)
-    } else {
-      res.send(api_res.body);
-    }
 
-  });
-};
-
-exports.login = function(req, res) {
-  var payload = req.body;
-  var backendServer = payload.env;
-  var email = payload.username;
-  var pwd = payload.password;
-  var apiUrl = config[backendServer].apiUrl;
-  var certPath = config[backendServer].certPath;
-  console.log('Cert path', certPath);
-  var cert = fs.readFileSync(certPath);
-  superagent.get(apiUrl+'/api/rest/get?apiid=getAuthGroup&methodname=getIBMAuthorizedGroup')
-  .auth(email, pwd)
-  .cert(cert)
-  .end((error, api_resp) => {
-    // console.log('LOGIN STATUS ', api_res.status);
-    if(error) {
-      res.send({status: "0", message: 'Login Error - Invalid Credential', items: [{isAuthenticated: false}]});
-    } else if(api_resp.status === 200){
-      res.send({status: "1", message: 'SUCCESS', items: [{isAuthenticated: true, email: email}]});
-    } else if(api_resp.status === 401) {
-      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_UNAUTHORIZED', items: [{isAuthenticated: false}]});
-    } else if(api_resp.status === 400) {
-      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_NOT_FOUND', items: [{isAuthenticated: false}]});
-    } else if(api_resp.status === 500) {
-      res.send({status: "0", message: 'HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR', items: [{isAuthenticated: false}]});
-    }
-  });
-};
+// exports.login = function(req, res) {
+//   var payload = req.body;
+//   var backendServer = payload.env;
+//   var email = payload.username;
+//   var pwd = payload.password;
+//   var apiUrl = config[backendServer].apiUrl;
+//   var certPath = config[backendServer].certPath;
+//   console.log('Cert path', certPath);
+//   var cert = fs.readFileSync(certPath);
+//   superagent.get(apiUrl+'/api/rest/get?apiid=getAuthGroup&methodname=getIBMAuthorizedGroup')
+//   .auth(email, pwd)
+//   .cert(cert)
+//   .end((error, api_resp) => {
+//     // console.log('LOGIN STATUS ', api_res.status);
+//     if(error) {
+//       res.send({status: "0", message: 'Login Error - Invalid Credential', items: [{isAuthenticated: false}]});
+//     } else if(api_resp.status === 200){
+//       // user is valid - lets create the web token
+//       var tokenPayload = {
+//         user: email
+//       }
+//       var token = jwt.sign(payload, app.get('superSecret'), {
+//         expiresIn: 86400 // expires in 24 hours
+//       });
+//       res.send({status: "1", message: 'SUCCESS', token: tokent, items: [{isAuthenticated: true, email: email}]});
+//     } else if(api_resp.status === 401) {
+//       res.send({status: "0", message: 'HTTP_RESPONSE_CODE_UNAUTHORIZED', items: [{isAuthenticated: false}]});
+//     } else if(api_resp.status === 400) {
+//       res.send({status: "0", message: 'HTTP_RESPONSE_CODE_NOT_FOUND', items: [{isAuthenticated: false}]});
+//     } else if(api_resp.status === 500) {
+//       res.send({status: "0", message: 'HTTP_RESPONSE_CODE_INTERNAL_SERVER_ERROR', items: [{isAuthenticated: false}]});
+//     }
+//   });
+// };
 
 exports.doGet = function(req, res) {
   var queryString = req.query;
@@ -63,6 +53,7 @@ exports.doGet = function(req, res) {
   var cert = fs.readFileSync(certPath);
   var id = config[backendServer].id;
   var pwd = config[backendServer].pwd;
+  console.log('#########', id+' + '+pwd);
   console.log("Query String is ", req.query);
 
     superagent.get(apiUrl+'/api/rest/get')

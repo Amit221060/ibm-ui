@@ -3,5 +3,6 @@ export interface AppContext {
   geo: string,
   email: string,
   uniqueid: string,
-  group: string
+  group: string,
+  token?: string
 }
