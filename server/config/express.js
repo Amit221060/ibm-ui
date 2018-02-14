@@ -39,8 +39,8 @@ module.exports = function(app, config) {
         var tokenPayload = {
           user: email
         }
-        var token = jwt.sign(tokenPayload, 'iamkiranibm', {
-          expiresIn: 86400 // expires in 24 hours
+        var token = jwt.sign(tokenPayload, conf[backendServer].secret, {
+          expiresIn: 86400 // expires in 24 hours - session valid until 24 hours
         });
         res.send({status: "1", message: 'SUCCESS', token: token, items: [{isAuthenticated: true, email: email}]});
       } else if(api_resp.status === 401) {

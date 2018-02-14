@@ -119,6 +119,7 @@ export function authReducer(
         apiRequest: action.payload
       }
     case AuthActionTypes.AUTH_SIGN_IN_SUCCESS:
+      console.log('Login Success ###', action.payload);
       return {
         ...state,
        appContext: {
