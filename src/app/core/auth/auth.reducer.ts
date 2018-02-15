@@ -116,6 +116,7 @@ export function authReducer(
         ...state,
         loading: true,
         loadingMsg: 'Sigining In',
+        isAuthenticated: false,
         apiRequest: action.payload
       }
     case AuthActionTypes.AUTH_SIGN_IN_SUCCESS:
@@ -204,7 +205,7 @@ export function authReducer(
         return {
           ...state,
           // displayWelcome: false,
-          // isAuthenticated: true,
+          isAuthenticated: true,
           apiRequest: action.payload,
           loading: true,
           loadingMsg: 'Starting ePricer...'
@@ -231,7 +232,8 @@ export function authReducer(
           error: null,
           displayWelcome: false,
           loading: false,
-          loadingMsg: ''
+          loadingMsg: '',
+          isAuthenticated: true
         }
     case AuthActionTypes.LOGIN_AUTHORIZE_ERROR:
 

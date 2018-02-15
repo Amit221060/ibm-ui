@@ -17,6 +17,7 @@ import { QuoteactionsModule } from './quoteactions/quoteactions.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './core/guard/login.guard';
+import { AuthGuard } from './core/guard/auth.guard';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { LoginGuard } from './core/guard/login.guard';
     QuoteactionsModule
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent],
-  providers: [MessageResoureService, LoginGuard],
+  providers: [MessageResoureService, LoginGuard, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
