@@ -59,7 +59,6 @@ cd ibm-ui
 A ng cli proxy has been configured to resolve the cross domeanin security issue.
 When you run the app development mode, your change will automatically be published and
 browser will be reloaded.)
- - In the config.js configure the userid and password
  - to start the node backend (BFF):
 Open a terminal/cmd promt and then run => "npm run node:start"
  - to start the ePricer frontend app:
@@ -68,7 +67,6 @@ Open another terminal and then run => "npm run start"
 
 8. Running the app in production mode
 (Both the front end and BFF will be serverd from Node Http Server)
- - In the config.js configure the userid and password
  - npm run node:prod
 ```
 
