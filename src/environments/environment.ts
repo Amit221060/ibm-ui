@@ -7,7 +7,7 @@ const packageJson = require('../../package.json');
 
 export const environment = {
   appName: 'ePricer',
-  envName: 'DEV',
+  envName: 'DEVS',
   production: false,
   versions: {
     app: packageJson.version,

@@ -7,6 +7,7 @@ import { HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators/map';
 import { ApiConnectorService } from '../../common/api-connector.service';
 import { ApiConnector } from '../model/api-connector';
+import { LoginPayload } from '../model/login-payload';
 
 @Injectable()
 export class LoginService {
@@ -14,12 +15,10 @@ export class LoginService {
   constructor(private apiConnector: ApiConnectorService) { }
 
   signin(payLoad: {username: string, password: string, env: string}):
-  Observable<{status: string, message?: string, token?: string, items: [{isAuthenticated: boolean, email?: string}]}> {
+  Observable<LoginPayload> {
     console.log('login service called');
     const connector: ApiConnector = this.apiConnector.getClient('api/login/', payLoad);
-    return connector.apiClient.post<
-    {status: string, message?: string, token?: string, items: [{isAuthenticated: boolean, email?: string}]}
-    >(connector.apiUrl, payLoad);
+    return connector.apiClient.post<LoginPayload>(connector.apiUrl, payLoad);
   }
 
   login(payload: LoginRequest): Observable<LoginResponse> {

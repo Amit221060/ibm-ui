@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-var jwt    = require('jsonwebtoken');
+var uuid = require('uuid');
+var nJwt = require('njwt');
+// var jwt    = require('jsonwebtoken');
 var superagent = require('superagent');
 var conf = require('../config/config');
 var rootPath = path.normalize(__dirname+'/../../');
@@ -35,14 +37,10 @@ module.exports = function(app, config) {
       if(error) {
         res.send({status: "0", message: 'Login Error - Invalid Credential', items: [{isAuthenticated: false}]});
       } else if(api_resp.status === 200){
-        // user is valid - lets create the web token
-        var tokenPayload = {
-          user: email
-        }
-        var token = jwt.sign(tokenPayload, conf[backendServer].secret, {
-          expiresIn: 86400 // expires in 24 hours - session valid until 24 hours
-        });
-        res.send({status: "1", message: 'SUCCESS', token: token, items: [{isAuthenticated: true, email: email}]});
+        var secretKey = conf[backendServer].secret;
+
+        var token = generateToken(email, pwd, secretKey);
+        res.send({status: "1", message: 'SUCCESS', token: token, email: email});
       } else if(api_resp.status === 401) {
         res.send({status: "0", message: 'HTTP_RESPONSE_CODE_UNAUTHORIZED', items: [{isAuthenticated: false}]});
       } else if(api_resp.status === 400) {
@@ -52,6 +50,48 @@ module.exports = function(app, config) {
       }
     });
   });
+
+  generateToken = function(userid, key, secretKey) {
+
+    var claims = {
+      sub: userid,
+      iss: 'https://www.ibm.com',
+      permissions: key
+    };
+    var jwt = nJwt.create(claims,secretKey);
+    console.log(jwt);
+    var token = jwt.compact();
+    console.log(token);
+    return token;
+  }
+
+// ---------------------------------------------------------
+// route middleware to authenticate and check token
+// ---------------------------------------------------------
+app.use(function(req, res, next){
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var env = req.body.env || req.query.env || req.headers['x-backend-env'];
+  // console.log('ENV ', env);
+  // console.log('TOKEN ', token);
+  // console.log('ENV SECRET ', conf[env].secret);
+  // decode token
+  if(token) {
+   // var backendServer = payload.env;
+		// verifies secret and checks exp
+    nJwt.verify(token,conf[env].secret,function(err,verifiedToken){
+      if(err){
+        console.log('VERIFY ERROR ', err);
+        return res.json({ status:'0', message: 'HTTP_RESPONSE_CODE_UNAUTHORIZED', items:[] });
+      }else{
+        req.jwtPayload = verifiedToken;
+        next();
+      }
+    });
+  } else {
+    return res.json({ status:'0', message: 'TOKEN_NOT_PROVIDED', items:[] });
+  }
+});
 
   //set up api routes
   //app.use('/api', api);

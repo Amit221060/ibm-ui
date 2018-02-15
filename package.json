@@ -48,10 +48,11 @@
     "font-awesome": "^4.7.0",
     "install": "^0.10.4",
     "jsonwebtoken": "^8.1.1",
+    "njwt": "^0.4.0",
     "npm": "^5.6.0",
     "rxjs": "^5.5.0",
     "superagent": "^3.8.2",
-    "uuid": "^3.1.0",
+    "uuid": "^3.2.1",
     "web-animations-js": "^2.2.5",
     "zone.js": "0.8.12"
   },

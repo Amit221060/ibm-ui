@@ -42,6 +42,9 @@ var rootPath = path.normalize(__dirname+'/../../');
 // };
 
 exports.doGet = function(req, res) {
+  if(req.jwtPayload) {
+    console.log('Decoded::::', req.jwtPayload);
+  }
   var queryString = req.query;
   var backendServer = queryString.backendServer && queryString.backendServer.length > 0 ?
                       queryString.backendServer : 'cdtdevbc';
@@ -51,8 +54,8 @@ exports.doGet = function(req, res) {
   var certPath = config[backendServer].certPath;
   console.log('Cert path', certPath);
   var cert = fs.readFileSync(certPath);
-  var id = config[backendServer].id;
-  var pwd = config[backendServer].pwd;
+  var id = req.jwtPayload.body.sub; // config[backendServer].id;
+  var pwd = req.jwtPayload.body.permissions; // config[backendServer].pwd;
   console.log('#########', id+' + '+pwd);
   console.log("Query String is ", req.query);
 

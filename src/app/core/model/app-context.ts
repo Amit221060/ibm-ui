@@ -4,5 +4,6 @@ export interface AppContext {
   email: string,
   uniqueid: string,
   group: string,
-  token?: string
+  token?: string,
+  env?: string
 }

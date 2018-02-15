@@ -36,6 +36,8 @@ export class ApiConnectorService {
         reqPayLoad.contectGroup = this.context.group;
         reqPayLoad.contextGeo = this.context.geo;
         reqPayLoad.contextId = this.context.uniqueid;
+        reqPayLoad.token = this.context.token;
+        reqPayLoad.env = this.context.env;
     } else {
       reqPayLoad = {
           'accept':  'application/json;charset=utf-8',
@@ -43,7 +45,9 @@ export class ApiConnectorService {
           'forceContentType': 'application/json; charset=UTF-8',
           'contectGroup': this.context.group,
           'contextGeo': this.context.geo,
-          'contextId': this.context.uniqueid
+          'contextId': this.context.uniqueid,
+          'token': this.context.token,
+          'env': this.context.env
         }
     }
       console.log('within selector of store');

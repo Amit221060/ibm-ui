@@ -6,6 +6,7 @@ import { AppState } from '../models/app-state';
 // import { ApiInfo } from '@app/core/models/api-info';
 import { AppContext } from '../model/app-context';
 import { LocalStorageService } from '@app/core';
+import { LoginPayload } from '../model/login-payload';
 
 
 
@@ -33,7 +34,7 @@ export class ActionAuthSignIn implements Action {
 
 export class ActionAuthSignInSuccess implements Action {
   readonly type = AuthActionTypes.AUTH_SIGN_IN_SUCCESS;
-  constructor(public payload: {userEmail: string, token?: string}) {}
+  constructor(public payload: LoginPayload) {}
 }
 
 export class ActionAuthSignInFail implements Action {
@@ -96,7 +97,7 @@ export type AuthActions = ActionAuthLogin
 
 
 export const initialState: AuthState = {
-  appContext: {baseUrl: '/', geo: '', uniqueid: '', group: '', email: ''},
+  appContext: {baseUrl: '/', geo: '', uniqueid: '', group: '', email: '', env: ''},
   apiRequest: {apiid: '', methodname: ''},
   isAuthenticated: false,
   displayWelcome: false,
@@ -114,10 +115,20 @@ export function authReducer(
     case AuthActionTypes.AUTH_SIGNIN_IN:
       return {
         ...state,
+        appContext: {
+          baseUrl: '/',
+          email: action.payload.username,
+          geo: '',
+          uniqueid: action.payload.username,
+          group: '',
+          token: '',
+          env: action.payload.env
+        },
         loading: true,
         loadingMsg: 'Sigining In',
         isAuthenticated: false,
-        apiRequest: action.payload
+        apiRequest: action.payload,
+        errorMessage: ''
       }
     case AuthActionTypes.AUTH_SIGN_IN_SUCCESS:
       console.log('Login Success ###', action.payload);
@@ -125,11 +136,12 @@ export function authReducer(
         ...state,
        appContext: {
                       baseUrl: '/',
-                      email: action.payload.userEmail,
+                      email: action.payload.email,
                       geo: '',
-                      uniqueid: action.payload.userEmail,
+                      uniqueid: action.payload.email,
                       group: '',
-                      token: action.payload.token
+                      token: action.payload.token,
+                      env: state.appContext.env
                     },
         loading: false,
         loadingMsg: '',
@@ -154,7 +166,8 @@ export function authReducer(
         loadingMsg: 'Identifying user',
         apiRequest: action.payload,
         // apiResponse: null,
-        error: null
+        error: null,
+        errorMessage: ''
       };
     case AuthActionTypes.LOGIN_SUCCESS:
       // get the items
@@ -168,7 +181,8 @@ export function authReducer(
                         email: item.email, geo: '',
                         uniqueid: item.email,
                         group: action.payload.selectedGroupCode,
-                        token: state.appContext.token
+                        token: state.appContext.token,
+                        env: state.appContext.env
                       },
           isAuthenticated: true,
           // apiResponse: action.payload.data,
@@ -208,7 +222,8 @@ export function authReducer(
           isAuthenticated: true,
           apiRequest: action.payload,
           loading: true,
-          loadingMsg: 'Starting ePricer...'
+          loadingMsg: 'Starting ePricer...',
+          errorMessage: ''
         };
     case AuthActionTypes.LOGIN_AUTHORIZE_SUCCESS:
     console.log(action.payload.data);
@@ -221,7 +236,8 @@ export function authReducer(
                         email: state.appContext.email,
                         geo: authRespItem.geo, uniqueid: state.appContext.email,
                         group: state.appContext.group,
-                        token: state.appContext.token
+                        token: state.appContext.token,
+                        env: state.appContext.env
                       },
           selectedGroupCode: authRespItem.selectedgroup,
           selectedGroupname: authRespItem.selectedgroupname,
