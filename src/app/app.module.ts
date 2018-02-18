@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './core/guard/login.guard';
 import { AuthGuard } from './core/guard/auth.guard';
+import { UtilService } from './common/util.service';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { AuthGuard } from './core/guard/auth.guard';
     QuoteactionsModule
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent],
-  providers: [MessageResoureService, LoginGuard, AuthGuard],
+  providers: [MessageResoureService, LoginGuard, AuthGuard, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

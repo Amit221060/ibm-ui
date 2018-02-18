@@ -8,6 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { ApiInfo } from '@app/core/models/api-info';
 import { MessageResoureService } from '../common/message-resoure.service';
 import { Observable } from 'rxjs/Observable';
+import { ActionRefLoadQuoteStatusReasoncodes } from '../core/reference/refdata.reducer';
 
 
 
@@ -42,6 +43,7 @@ export class WelcomeComponent implements OnInit {
     console.log(values);
     this.payload = {apiid: 'getAuthGroup', methodname: 'getSelectedIBMGroupInfo', selectedgroup: values.selectedGroup};
     this.store.dispatch(new ActionAuthAuthorize(this.payload));
+    this.store.dispatch(new ActionRefLoadQuoteStatusReasoncodes({apiid: 'manageQuote', methodname: 'getAllStatus'}));
     // this.router.navigate(['/dashboard']);
   }
 
@@ -65,6 +67,7 @@ export class WelcomeComponent implements OnInit {
         this.loginPayLoad = {apiid: 'getAuthGroup', methodname: 'getIBMAuthorizedGroup'};
         this.initialized = true;
         this.store.dispatch(new ActionAuthLogin(this.loginPayLoad));
+
       }
     });
   }

@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
 
@@ -24,7 +24,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
   imports: [
     CommonModule,
     FormsModule,
-
+    MatExpansionModule,
     MatButtonModule,
     MatToolbarModule,
     MatSelectModule,
@@ -44,7 +44,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
   exports: [
     CommonModule,
     FormsModule,
-
+    MatExpansionModule,
     MatButtonModule,
     MatMenuModule,
     MatTabsModule,

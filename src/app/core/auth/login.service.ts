@@ -8,11 +8,13 @@ import { map } from 'rxjs/operators/map';
 import { ApiConnectorService } from '../../common/api-connector.service';
 import { ApiConnector } from '../model/api-connector';
 import { LoginPayload } from '../model/login-payload';
+import { UtilService } from '../../common/util.service';
 
 @Injectable()
 export class LoginService {
 
-  constructor(private apiConnector: ApiConnectorService) { }
+  constructor(private apiConnector: ApiConnectorService,
+              private utilService: UtilService) { }
 
   signin(payLoad: {username: string, password: string, env: string}):
   Observable<LoginPayload> {
@@ -25,7 +27,7 @@ export class LoginService {
     console.log('login service called');
     const connector: ApiConnector = this.apiConnector.getClient('api/get/', payload);
     // return this.httpClient.get<LoginResponse>('/api/get', {params: params});
-    const url = connector.apiUrl + this.getQueryString(connector.reqPayLoad);
+    const url = connector.apiUrl + this.utilService.getQueryString(connector.reqPayLoad);
     //  + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname;
     return connector.apiClient.get<LoginResponse>(url, connector.options);
   }
@@ -33,16 +35,9 @@ export class LoginService {
   authorize(payload: AuthorizedRequest): Observable<AuthorizeResponse> {
     console.log('authorize service called');
     const connector: ApiConnector = this.apiConnector.getClient('api/get/', payload);
-    const url = connector.apiUrl + this.getQueryString(connector.reqPayLoad);
+    const url = connector.apiUrl + this.utilService.getQueryString(connector.reqPayLoad);
     //  + '?apiid=' + payload.apiid + '&' + 'methodname=' + payload.methodname
     //               + '&selectedgroup=' + payload.selectedgroup;
     return connector.apiClient.get<AuthorizeResponse>(url, connector.options);
   }
-
-  getQueryString(params): string {
-    const queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
-    console.log('QUERY STRING', queryString);
-    return ('?' + queryString);
-  }
-
 }
