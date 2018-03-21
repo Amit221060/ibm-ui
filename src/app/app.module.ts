@@ -21,6 +21,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { UtilService } from './common/util.service';
 
 
+
 @NgModule({
   imports: [
     // angular
@@ -45,7 +46,12 @@ import { UtilService } from './common/util.service';
     QuoteactionsModule
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent],
-  providers: [MessageResoureService, LoginGuard, AuthGuard, UtilService],
+  providers: [
+      MessageResoureService,
+      LoginGuard,
+      AuthGuard,
+      UtilService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

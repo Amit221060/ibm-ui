@@ -12,6 +12,7 @@ export class DashboardService {
               private utilService: UtilService) { }
 
   getMyQuoteCounts(payload: LoadMyQuotesCountRequest): Observable<LoadMyQuotesCountResponse> {
+    console.log('DSB ---> getting My Quotes Count')
     const connector: ApiConnector = this.apiConnector.getClient('api/get', payload);
     const url = connector.apiUrl + this.utilService.getQueryString(connector.reqPayLoad);
     return connector.apiClient.get<LoadMyQuotesCountResponse>(url, connector.options);

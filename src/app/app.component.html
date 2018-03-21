@@ -1,6 +1,9 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="push">
-    <div class="branding"><img [src]="logo"/></div>
+    <div class="branding">
+      <img [src]="logo"/>
+      <!-- IBM | ePricer -->
+    </div>
     <mat-nav-list>
       <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenav.close()"
          [routerLink]="[item.link]" routerLinkActive="active">
@@ -21,8 +24,10 @@
           [src]="logo"/></span> -->
         <!-- <span routerLink="" class="branding spacer d-none d-sm-inline d-md-none text-center"><img
           [src]="logo"/> e-Pricer</span> -->
-        <span routerLink="" class="branding spacer d-none d-md-inline"><img
-          [src]="logo"/></span>
+        <span routerLink="" class="branding spacer d-none d-md-inline">
+          <img [src]="logo"/>
+          <!-- IBM | ePricer -->
+        </span>
 
           <!-- <button mat-button class="sign-in-button "
           *ngIf="!(displayWelcome$ | async)"
@@ -37,17 +42,39 @@
           </button>
         </span>
 
+        <!-- <span class="d-none d-md-inline">
+            <button mat-button class="nav-button" *ngFor="let item of navigation"
+                [routerLink]="['managequotes']" routerLinkActive="active">
+              Create Quote
+            </button>
+          </span> -->
         <!-- <button mat-button class="sign-in-button "
                 *ngIf="!(displayWelcome)"
                 (click)="onLoginClick()">
           Create Quote
         </button> -->
-        <button mat-button
+        <!-- <button mat-button
           *ngIf="!(displayWelcome)"
           (click)="onLoginClick()">
           <mat-icon>add_circle_outline</mat-icon>
           <span>Create Quote</span>
-        </button>
+        </button> -->
+
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend" style="margin-top:16px;" >
+                    <button class="btn btn-primary dropdown-toggle"
+                      type="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">Search by
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Quote Ids</a>
+                        <a class="dropdown-item" href="#">Customer name</a>
+                        <a class="dropdown-item" href="#">Quote manager</a>
+                    </div>
+                </div>
+                <input type="text" class="form-control" style="margin-top:16px;" placeholder="Search quotes">
+            </div>
+
 
         <button *ngIf="!(displayWelcome)"
                 mat-icon-button

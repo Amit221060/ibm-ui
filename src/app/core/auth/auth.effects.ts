@@ -24,6 +24,7 @@ import { ActionAuthSignIn, ActionAuthSignInSuccess, ActionAuthSignInFail } from 
 import { ActionAuthAuthorize,
         AuthorizeResponse, ActionAuthAuthorizeSuccess,
         ActionAuthAuthorizeError} from './auth.reducer';
+import { ActionDsbLoadMyquotesCount } from '@app/dashboard/dashboard.reducer';
 
 
 
@@ -66,7 +67,8 @@ export class AuthEffects {
     return this.actions$
       .ofType(AuthActionTypes.LOGIN_AUTHORIZE_SUCCESS)
       .pipe(
-        tap((action) => this.router.navigate(['/dashboard']))
+        tap((action) => this.router.navigate(['/searchquotes']))
+       // map( () => new ActionDsbLoadMyquotesCount({apiid: 'manageQuote', methodName: 'getIBMQuoteSummary', query: 'summary'}))
       )
   }
 

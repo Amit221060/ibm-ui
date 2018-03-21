@@ -10,6 +10,7 @@ import { DashboardActionTypes,
          ActionDsbLoadMyquotesCountFail } from './dashboard.reducer';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
 
 @Injectable()
 export class DashboardEffects {
@@ -31,4 +32,5 @@ export class DashboardEffects {
           ))
       )
   }
+
 }

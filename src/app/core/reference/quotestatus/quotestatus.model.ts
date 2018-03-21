@@ -5,6 +5,6 @@ export interface IQuoteStatus {
   status: string,
   bpstatuslist: CodeLabel[],
   internalstatuslist: CodeLabel[],
-  bpreasoncodeslis: CodeLabel[],
+  bpreasoncodeslist: CodeLabel[],
   internalreasoncodeslist: CodeLabel[]
 }

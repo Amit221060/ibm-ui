@@ -16,9 +16,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
+import { QuoteStatusCodeToLabelPipe } from './pipes/quote-status-code-to-label.pipe';
+
+export const PIPES = [QuoteStatusCodeToLabelPipe];
 
 @NgModule({
   imports: [
@@ -38,9 +42,10 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatListModule,
     MatMenuModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatGridListModule
   ],
-  declarations: [BigInputComponent, BigInputActionComponent],
+  declarations: [BigInputComponent, BigInputActionComponent, PIPES],
   exports: [
     CommonModule,
     FormsModule,
@@ -59,6 +64,7 @@ import { BigInputActionComponent } from './big-input/big-input-action.component'
     MatToolbarModule,
     MatIconModule,
     MatTooltipModule,
+    MatGridListModule,
 
     BigInputComponent,
     BigInputActionComponent

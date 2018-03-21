@@ -1,12 +1,11 @@
+import { StatusCodeCount } from './dashboard.reducer';
 export interface DashboardState {
   apiRequestQuotePanel?: any,
   loadingQuotePanel: boolean,
   loadingQuotePanelMsg: string,
   errorMsgQuotePanel: string,
-  myQuotesSummary?: MyQuotesSummary[]
+  myQuotesSummary?: StatusCodeCount[],
+  totalMyquotesCount?: string
 }
 
-export interface MyQuotesSummary {
-  statusItem: string,
-  count: string
-}
+

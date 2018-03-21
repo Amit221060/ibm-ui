@@ -25,6 +25,7 @@ mat-sidenav-container {
 
       .branding {
         cursor: pointer;
+        padding-right: 15px;
       }
 
       .sign-in-button {
@@ -33,7 +34,7 @@ mat-sidenav-container {
       }
 
       .spacer {
-        flex: 1 1 auto;
+        flex: 0 0 auto;
       }
 
       @media (max-width: map-get($grid-breakpoints, lg)) {
@@ -139,4 +140,9 @@ mat-sidenav {
   .mat-nav-list {
     padding-top: 0;
   }
+}
+.quote-search-container {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
 }

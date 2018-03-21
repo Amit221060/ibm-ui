@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { IQuoteStatus } from './quotestatus/quotestatus.model';
 import { CodeLabel } from '../../common/models/code-label';
+import { AppState } from '../models/app-state';
 
 export const REF_KEY = 'REF';
 
@@ -30,14 +31,14 @@ export type RefDataAction = ActionRefLoadQuoteStatusReasoncodes
                             | ActionRefLoadQuoteStatusReasoncodesFail
 
 export const initialRefState: RefState = {
-  loading: false,
+  quoteStatusInitialized: false,
   loadingMsg: '',
   errorMessage: '',
-  bpQuoteStatuses: [],
-  internalQuoteStatuses: [],
-  bpRessonCodes: [],
-  internalResonCodes: []
+  quoteStatuses: [],
+  reasonCodes: []
 }
+
+export const selectorRefData = (state: AppState) => state.ref;
 
 export function refDataReducer(
   state: RefState = initialRefState,
@@ -47,19 +48,27 @@ export function refDataReducer(
     case ReferenceDataActionTypes.REF_LOAD_QUOTE_STATUS_REASONCODES:
       return {
         ...state,
+        errorMessage: '',
         apiRequest: action.payload
       }
     case ReferenceDataActionTypes.REF_LOAD_QUOTE_STATUS_REASONCODES_SUCCESS:
+    const statuses = action.payload.bpstatuslist;
+    const reasonCodes = action.payload.bpreasoncodeslist;
+    Array.prototype.push.apply(statuses, action.payload.internalstatuslist);
+    Array.prototype.push.apply(reasonCodes, action.payload.internalreasoncodeslist);
+    console.log('Merged Quote Statuses#######', statuses);
+    console.log('Merged Reason Codes#######', reasonCodes);
       return {
         ...state,
-        bpQuoteStatuses: action.payload.bpstatuslist,
-        internalQuoteStatuses: action.payload.internalstatuslist,
-        bpRessonCodes: action.payload.bpreasoncodeslis,
-        internalResonCodes: action.payload.internalreasoncodeslist
+        quoteStatusInitialized: true,
+        errorMessage: '',
+        quoteStatuses: statuses,
+        reasonCodes: reasonCodes
       }
     case ReferenceDataActionTypes.REF_LOAD_QUOTE_STATUS_REASONCODES_FAIL:
       return {
         ...state,
+        quoteStatusInitialized: false,
         errorMessage: action.payload.errorMessage
       }
     default:
@@ -68,12 +77,10 @@ export function refDataReducer(
 }
 
 export interface RefState {
-  loading: boolean,
+  quoteStatusInitialized: boolean,
   apiRequest?: any,
   loadingMsg: string,
   errorMessage: string,
-  bpQuoteStatuses: CodeLabel[],
-  internalQuoteStatuses: CodeLabel[],
-  bpRessonCodes: CodeLabel[],
-  internalResonCodes: CodeLabel[]
+  quoteStatuses: CodeLabel[],
+  reasonCodes: CodeLabel[]
 }

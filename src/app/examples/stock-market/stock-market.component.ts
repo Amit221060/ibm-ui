@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Stock } from './stock-market.reducer';
+import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 
 import {
   ActionStockMarketRetrieve,
@@ -26,7 +27,7 @@ export class StockMarketComponent implements OnInit, OnDestroy {
     this.initialized = false;
     this.store
       .select(selectorStocks)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(takeUntil(this.unsubscribe$), distinctUntilChanged())
       .subscribe((stocks: Stock) => {
         this.stocks = stocks;
 

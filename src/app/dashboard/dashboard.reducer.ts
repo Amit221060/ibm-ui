@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { DashboardState } from './dashboard-state';
+import { AppState } from '../core/models/app-state';
 export const DASHBOARD_KEY = 'DSB';
 
 export enum DashboardActionTypes {
@@ -33,7 +34,7 @@ export const initialDashBoardState: DashboardState = {
   apiRequestQuotePanel: null,
   errorMsgQuotePanel: ''
 }
-
+export const selectorDashboard = (state: AppState) => state.dashboard || initialDashBoardState;
 export function dashboaedReducer(
   state: DashboardState = initialDashBoardState,
   action: DashboardAction
@@ -41,12 +42,19 @@ export function dashboaedReducer(
    switch (action.type) {
      case DashboardActionTypes.DASHBOARD_LOAD_MYQUOTES_COUNT:
       return {
-        ...state
+        ...state,
+        apiRequestQuotePanel: action.payload,
+        loadingQuotePanel: true,
+        loadingQuotePanelMsg: 'Loading My Quotes...'
       }
      case DashboardActionTypes.DASHBOARD_LOAD_MYQUOTES_COUNT_SUCCESS:
-      console.log('DASHBOARD RESPONSES', action.payload);
+      console.log('DASHBOARD API RESPONSES', action.payload.items[0].total);
       return {
-        ...state
+        ...state,
+        myQuotesSummary: action.payload.items[0].total ? action.payload.items[0].total : [],
+        totalMyquotesCount: action.payload.items[0].myquotescount ? action.payload.items[0].myquotescount[0].totalcount : '0',
+        loadingQuotePanel: false,
+        loadingQuotePanelMsg: ''
       }
      case DashboardActionTypes.DASHBOARD_LOAD_MYQUOTES_COUNT_FAIL:
       return {
@@ -75,7 +83,7 @@ export interface LoadMyQuotesCountResponse {
 
 export interface Item {
   total: StatusCodeCount[],
-  myquotescount: {totalcount: string}
+  myquotescount: [{totalcount: string}]
 }
 
 export interface StatusCodeCount {

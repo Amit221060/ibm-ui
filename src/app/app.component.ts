@@ -43,9 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
   logo = require('../assets/logo_white_small.png');
   isGroupSelected = false;
   navigation = [
-    { link: 'dashboard', label: 'Dashboard' },
-    { link: 'myquotes', label: 'My Quotes' },
+    // { link: 'dashboard', label: 'Dashboard' },
+    // { link: 'myquotes', label: 'My Quotes' },
     { link: 'searchquotes', label: 'Search Quotes' },
+    {link: 'managequotes', label: 'Create Quotes'},
     { link: 'managequotes', label: 'Manage Quotes' },
     { link: 'assignbackup', label: 'Assign Backup' },
   ];

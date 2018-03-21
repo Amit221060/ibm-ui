@@ -231,11 +231,12 @@ export function authReducer(
     const authRespItem = action.payload.data.items[0];
         return {
           ...state,
+          selectedGroup: authRespItem.selectedgroup,
           appContext: {
                         baseUrl: '/',
                         email: state.appContext.email,
                         geo: authRespItem.geo, uniqueid: state.appContext.email,
-                        group: state.appContext.group,
+                        group: authRespItem.selectedgroup,
                         token: state.appContext.token,
                         env: state.appContext.env
                       },

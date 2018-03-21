@@ -9,6 +9,9 @@ import { StoreModule } from '@ngrx/store';
 import { dashboaedReducer } from './dashboard.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { DashboardEffects } from './dashboard.effects';
+import { QuotePanelComponent } from './quote-panel/quote-panel.component';
+import { ExpiryQuotePanelComponent } from './expiry-quote-panel/expiry-quote-panel.component';
+import { NewsPanelComponent } from './news-panel/news-panel.component';
 
 @NgModule({
   imports: [
@@ -19,7 +22,7 @@ import { DashboardEffects } from './dashboard.effects';
     StoreModule.forFeature('dashboard', dashboaedReducer),
     EffectsModule.forFeature([DashboardEffects])
   ],
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, QuotePanelComponent, ExpiryQuotePanelComponent, NewsPanelComponent],
   providers: [DashboardService]
 })
 export class DashboardModule { }
