@@ -22,7 +22,7 @@
         "styles-app-loading.scss",
         "styles.scss",
         "../node_modules/ag-grid/dist/styles/ag-grid.css",
-        "../node_modules/ag-grid/dist/styles/theme-fresh.css"
+        "../node_modules/ag-grid/dist/styles/ag-theme-balham.css"
       ],
       "stylePreprocessorOptions": {
         "includePaths": ["./", "./themes"]

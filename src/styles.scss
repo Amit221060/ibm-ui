@@ -16,6 +16,13 @@
 
 @import '../node_modules/@angular/material/theming';
 
+// Set the colors to blue and amber
+//$ag-mat-primary: #2196F3; // blue-500
+// $ag-mat-accent: #FFD740; // amber-A200
+
+// @import "../node_modules/ag-grid/dist/styles/ag-grid.css";
+
+// @import '../node_modules/ag-grid/dist/styles/ag-theme-material.css';
 @include mat-core();
 
 @import 'default-theme.scss';

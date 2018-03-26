@@ -12,6 +12,7 @@ export class SearchQuoteGridComponent implements OnInit {
   gridOptions: GridOptions;
   showGrid: boolean;
   rowData: any[];
+  // rowHeight: any;
   columnDefs: any[];
   rowCount: string;
   constructor() {
@@ -20,6 +21,7 @@ export class SearchQuoteGridComponent implements OnInit {
         this.rowData = SearchResult.RESULTS;
         this.createColumnDefs();
         this.showGrid = true;
+        // this.rowHeight= '12px';
         // this.gridOptions.dateComponentFramework = DateComponent;
         this.gridOptions.defaultColDef = {
             headerComponentFramework : <{new(): HeaderComponentComponent}>HeaderComponentComponent,
@@ -36,56 +38,56 @@ export class SearchQuoteGridComponent implements OnInit {
   private createColumnDefs() {
     this.columnDefs = [
     {
-      headerName: '#', width: 30, checkboxSelection: true, suppressSorting: true,
-      suppressMenu: true, pinned: true
+      headerName: '#', width: 60, checkboxSelection: true, suppressSorting: true,
+      suppressMenu: true
     },
     {
       headerName: 'Quote Id', field: 'quoteid',
-      width: 150, pinned: true
+      width: 150
     },
     {
       headerName: 'Country', field: 'ctrycode',
-      width: 150, pinned: true
+      width: 150
     },
     {
         headerName: 'Quote Type', field: 'creatortype',
-        width: 100, pinned: true
+        width: 150
     },
     {
         headerName: 'EU Customer', field: 'ctmttcuccompanyname1',
-        width: 300, pinned: true
+        width: 150
     },
     {
         headerName: 'Quote Status', field: 'quotestatus',
-        width: 150, pinned: true
+        width: 150
     },
     {
         headerName: 'Order Status', field: 'orderstatus',
-        width: 150, pinned: true
+        width: 150
     },
     {
         headerName: 'Brand', field: 'brandcode',
-        width: 150, pinned: true
+        width: 150
     },
     {
         headerName: 'List Price', field: 'listprice',
-        width: 150, pinned: true
+        width: 150
     },
     {
         headerName: 'Quoted Price', field: 'approvedprice',
-        width: 150, pinned: true
+        width: 150
     },
     {
         headerName: 'Tier1 Name', field: 'ctmttcubcompanyname1',
-        width: 300, pinned: true
+        width: 150
     },
     {
         headerName: 'Tier2 Name', field: 'ctmttcudcompanyname1',
-        width: 300, pinned: true
+        width: 150
     },
     {
         headerName: 'Creation Date', field: 'ctmttdattranscreatedate',
-        width: 150, pinned: true
+        width: 150
     }]
   }
   private calculateRowCount() {
@@ -101,8 +103,9 @@ export class SearchQuoteGridComponent implements OnInit {
         this.calculateRowCount();
     }
 
-    public onReady() {
+    public onReady(params) {
         console.log('onReady');
+        // params.api.sizeColumnsToFit();
         this.calculateRowCount();
     }
 
