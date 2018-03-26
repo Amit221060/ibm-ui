@@ -23,12 +23,12 @@ export class SearchQuoteGridComponent implements OnInit {
         this.showGrid = true;
         // this.rowHeight= '12px';
         // this.gridOptions.dateComponentFramework = DateComponent;
-        this.gridOptions.defaultColDef = {
-            headerComponentFramework : <{new(): HeaderComponentComponent}>HeaderComponentComponent,
-            headerComponentParams : {
-                menuIcon: 'fa-bars'
-            }
-        }
+        // this.gridOptions.defaultColDef = {
+        //     headerComponentFramework : <{new(): HeaderComponentComponent}>HeaderComponentComponent,
+        //     headerComponentParams : {
+        //         menuIcon: 'fa-bars'
+        //     }
+        // }
 
   }
 

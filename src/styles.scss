@@ -32,6 +32,15 @@
 @import 'styles-reset.scss-theme';
 @import 'app/app.component.scss-theme';
 @import 'app/shared/big-input/big-input.component.scss-theme';
+
+$ag-mat-icons-path: "~ag-grid/src/styles/material-icons/";
+$ag-icons-path: "~ag-grid/src/styles/icons/";
+@import '~ag-grid/src/styles/ag-grid';
+$ag-mat-primary: mat-color($anms-primary);
+$ag-mat-accent: mat-color($anms-accent);
+
+@import '~ag-grid/src/styles/ag-theme-material';
+
 // @import 'app/static/about/about.component.scss-theme';
 // @import 'app/examples/todos/todos.component.scss-theme';
 // @import 'app/examples/stock-market/stock-market.component.scss-theme';
