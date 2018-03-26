@@ -15,8 +15,8 @@ import { AgGridModule } from 'ag-grid-angular';
     FormsModule,
     QuoteActionRouterModule,
     AgGridModule.withComponents([
-      SearchquotesComponent,
-      SearchQuoteGridComponent,
+      // SearchquotesComponent,
+      // SearchQuoteGridComponent,
       HeaderComponentComponent
     ])
   ],

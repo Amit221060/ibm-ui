@@ -46,6 +46,46 @@ export class SearchQuoteGridComponent implements OnInit {
     {
       headerName: 'Country', field: 'ctrycode',
       width: 150, pinned: true
+    },
+    {
+        headerName: 'Quote Type', field: 'creatortype',
+        width: 100, pinned: true
+    },
+    {
+        headerName: 'EU Customer', field: 'ctmttcuccompanyname1',
+        width: 300, pinned: true
+    },
+    {
+        headerName: 'Quote Status', field: 'quotestatus',
+        width: 150, pinned: true
+    },
+    {
+        headerName: 'Order Status', field: 'orderstatus',
+        width: 150, pinned: true
+    },
+    {
+        headerName: 'Brand', field: 'brandcode',
+        width: 150, pinned: true
+    },
+    {
+        headerName: 'List Price', field: 'listprice',
+        width: 150, pinned: true
+    },
+    {
+        headerName: 'Quoted Price', field: 'approvedprice',
+        width: 150, pinned: true
+    },
+    {
+        headerName: 'Tier1 Name', field: 'ctmttcubcompanyname1',
+        width: 300, pinned: true
+    },
+    {
+        headerName: 'Tier2 Name', field: 'ctmttcudcompanyname1',
+        width: 300, pinned: true
+    },
+    {
+        headerName: 'Creation Date', field: 'ctmttdattranscreatedate',
+        width: 150, pinned: true
     }]
   }
   private calculateRowCount() {
