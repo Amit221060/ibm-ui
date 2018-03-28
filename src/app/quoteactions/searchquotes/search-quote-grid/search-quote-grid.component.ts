@@ -38,8 +38,7 @@ export class SearchQuoteGridComponent implements OnInit {
   private createColumnDefs() {
     this.columnDefs = [
     {
-      headerName: '#', width: 60, checkboxSelection: true, suppressSorting: true,
-      suppressMenu: true
+      headerName: '#', width: 60, checkboxSelection: true, suppressSorting: true
     },
     {
       headerName: 'Quote Id', field: 'quoteid',
