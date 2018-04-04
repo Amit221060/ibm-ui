@@ -1,0 +1,13 @@
+<h1 mat-dialog-title style="text-align: center">Search Criteria <hr></h1>
+<div mat-dialog-content>
+  
+  <mat-form-field>
+    <input type="text" matInput placeholder="Criteria name" required>
+  </mat-form-field>
+  <div class="brand">All possible Search criteria will apear here!! </div>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="" cdkFocusInitial color="primary">Save and Search</button>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+</div>

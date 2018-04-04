@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './core/guard/login.guard';
 import { AuthGuard } from './core/guard/auth.guard';
 import { UtilService } from './common/util.service';
+import { SearchQuotesModule } from '@app/search-quotes/search-quotes.module';
 
 
 
@@ -42,7 +43,7 @@ import { UtilService } from './common/util.service';
     AppRoutingModule,
 
     DashboardModule,
-
+    SearchQuotesModule,
     QuoteactionsModule
   ],
   declarations: [AppComponent, WelcomeComponent, LoginComponent],

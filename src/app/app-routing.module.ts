@@ -5,6 +5,7 @@ import { SettingsComponent } from './settings';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './core/guard/login.guard';
+import { SearchQuoteContainerComponent } from '@app/search-quotes/search-quote-container/search-quote-container.component';
 
 const routes: Routes = [
   {
@@ -32,17 +33,19 @@ const routes: Routes = [
     // loadChildren: 'app/dashboard/dashboard.module#DashboardModule'
   },
   {
-    path: 'myquotes',
-    // loadChildren: 'app/quoteactions/quoteactions.module#QuoteactionsModule'
-    redirectTo: 'myquotes',
-    canActivate: [LoginGuard]
-  },
-  {
     path: 'searchquotes',
-    // loadChildren: 'app/quoteactions/quoteactions.module#QuoteactionsModule'
-    redirectTo: 'searchquotes',
+    component: SearchQuoteContainerComponent,
     canActivate: [LoginGuard],
+    data: {
+      title: 'Search quotes'
+    }
   },
+  // {
+  //   path: 'searchquotes',
+  //   // loadChildren: 'app/quoteactions/quoteactions.module#QuoteactionsModule'
+  //   redirectTo: 'searchquotes',
+  //   canActivate: [LoginGuard],
+  // },
   {
     path: 'settings',
     component: SettingsComponent,

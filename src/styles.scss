@@ -36,8 +36,10 @@
 $ag-mat-icons-path: "~ag-grid/src/styles/material-icons/";
 $ag-icons-path: "~ag-grid/src/styles/icons/";
 @import '~ag-grid/src/styles/ag-grid';
-$ag-mat-primary: mat-color($anms-primary);
-$ag-mat-accent: mat-color($anms-accent);
+// $ag-mat-primary: mat-color($anms-primary);
+// $ag-mat-accent: mat-color($anms-accent);
+// $ag-mat-primary: #2196F3; // blue-500
+// $ag-mat-accent: #FFD740; // amber-A200
 
 @import '~ag-grid/src/styles/ag-theme-material';
 
@@ -72,3 +74,14 @@ $ag-mat-accent: mat-color($anms-accent);
   @include angular-material-theme($anms-black-theme);
   @include custom-components-theme($anms-black-theme);
 }
+
+.ag-theme-material {
+  font-size: 15px;
+}
+.ag-theme-material .ag-header {
+  background-color: whitesmoke; 
+  font-size: 15px;
+  color: black;
+}
+
+

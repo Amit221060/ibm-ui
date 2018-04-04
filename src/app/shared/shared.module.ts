@@ -21,6 +21,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { BigInputComponent } from './big-input/big-input.component';
 import { BigInputActionComponent } from './big-input/big-input-action.component';
 import { QuoteStatusCodeToLabelPipe } from './pipes/quote-status-code-to-label.pipe';
+import { MatDialogModule } from '@angular/material';
 
 export const PIPES = [QuoteStatusCodeToLabelPipe];
 
@@ -43,7 +44,8 @@ export const PIPES = [QuoteStatusCodeToLabelPipe];
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule
   ],
   declarations: [BigInputComponent, BigInputActionComponent, PIPES],
   exports: [
@@ -65,6 +67,7 @@ export const PIPES = [QuoteStatusCodeToLabelPipe];
     MatIconModule,
     MatTooltipModule,
     MatGridListModule,
+    MatDialogModule,
 
     BigInputComponent,
     BigInputActionComponent
