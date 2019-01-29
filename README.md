@@ -60,7 +60,7 @@ A ng cli proxy has been configured to resolve the cross domeanin security issue.
 When you run the app development mode, your change will automatically be published and
 browser will be reloaded.)
  - to start the node backend (BFF):
-Open a terminal/cmd promt and then run => "npm run node:start"
+Open a terminal/cmd promt and then run => "npm run start:node"
  - to start the ePricer frontend app:
 Open another terminal and then run => "npm run start"
  - Chrome Browser will automatically open and application will be launched
